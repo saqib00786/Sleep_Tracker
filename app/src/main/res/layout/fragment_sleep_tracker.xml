@@ -33,7 +33,8 @@
                 android:layout_marginStart="@dimen/margin"
                 android:layout_marginTop="@dimen/margin"
                 android:layout_marginEnd="@dimen/margin"
-                android:text="@string/listSleep"
+                android:text="@{sleepTrackerViewModel.nightsString}"
+                tools:text="Your sleep information is here!!"
                 />
         </ScrollView>
 
@@ -50,7 +51,9 @@
             app:layout_constraintBaseline_toBaselineOf="@id/stop_button"
             app:layout_constraintEnd_toStartOf="@+id/stop_button"
             app:layout_constraintHorizontal_chainStyle="spread"
-            app:layout_constraintStart_toStartOf="parent" />
+            app:layout_constraintStart_toStartOf="parent"
+            android:onClick="@{() -> sleepTrackerViewModel.onStartTracking()}"
+            />
 
         <Button
             android:id="@+id/stop_button"
@@ -61,7 +64,9 @@
             android:text="@string/stop"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toEndOf="@+id/start_button"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintTop_toTopOf="parent"
+            android:onClick="@{() -> sleepTrackerViewModel.onStopTracking()}"
+            />
 
         <Button
             android:id="@+id/clear_button"
@@ -73,7 +78,9 @@
             android:text="@string/clear"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent" />
+            app:layout_constraintStart_toStartOf="parent"
+            android:onClick="@{() -> sleepTrackerViewModel.onClear()}"
+            />
 
 
     </androidx.constraintlayout.widget.ConstraintLayout>
