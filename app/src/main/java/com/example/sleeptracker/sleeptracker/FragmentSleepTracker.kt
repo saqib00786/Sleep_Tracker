@@ -5,15 +5,14 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
-import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.sleeptracker.R
 import com.example.sleeptracker.adapter.SleepNightAdapter
 import com.example.sleeptracker.databinding.FragmentSleepTrackerBinding
 import com.example.sleeptracker.model.SleepDatabase
+import com.google.android.material.snackbar.Snackbar
 
 class FragmentSleepTracker : Fragment() {
     private var mBinding: FragmentSleepTrackerBinding? = null
@@ -40,7 +39,8 @@ class FragmentSleepTracker : Fragment() {
 
         sleepTrackerViewModel.getAllNight.observe(viewLifecycleOwner){
             it?.let{
-                adapter.data = it
+//                adapter.data = it
+                adapter.submitList(it)
             }
         }
 
@@ -50,6 +50,17 @@ class FragmentSleepTracker : Fragment() {
                 this.findNavController()
                     .navigate(FragmentSleepTrackerDirections.actionFragmentSleepTrackerToFragmentSleepQuality(night.sleepNightId))
                 sleepTrackerViewModel.doneNavigation()
+            }
+        })
+
+        sleepTrackerViewModel.showSnackBarEvent.observe(viewLifecycleOwner, {
+            if (it == true) { // Observed state is true.
+                Snackbar.make(
+                    requireActivity().findViewById(android.R.id.content),
+                    getString(R.string.clear_message),
+                    Snackbar.LENGTH_SHORT // How long to display the message.
+                ).show()
+                sleepTrackerViewModel.doneEvent()
             }
         })
 

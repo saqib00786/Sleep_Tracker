@@ -25,6 +25,17 @@ class SleepTrackerViewModel(
         formatNights(nights, application.resources)
     }
 
+    private var _showSnackbarEvent = MutableLiveData<Boolean>()
+    /**
+     * If this is true, immediately `show()` a toast and call `doneShowingSnackbar()`.
+     */
+    val showSnackBarEvent: LiveData<Boolean>
+        get() = _showSnackbarEvent
+
+    fun doneEvent(){
+        _showSnackbarEvent.value = false
+    }
+
     private val _navigateToSleepQuality = MutableLiveData<SleepEntity>()
 
     val navigateToSleepQuality: LiveData<SleepEntity>
@@ -91,6 +102,7 @@ class SleepTrackerViewModel(
             clear()
             toNight.value = null
         }
+        _showSnackbarEvent.value = true
     }
 
     private suspend fun clear() {
