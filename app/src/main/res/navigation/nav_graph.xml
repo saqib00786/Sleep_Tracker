@@ -15,6 +15,9 @@
             app:destination="@id/fragmentSleepQuality"
             app:enterAnim="@anim/slide_in_right"
             app:popEnterAnim="@anim/slide_in_right" />
+        <action
+            android:id="@+id/action_fragmentSleepTracker_to_fragmentSleepNightDetail"
+            app:destination="@id/fragmentSleepNightDetail" />
     </fragment>
     <fragment
         android:id="@+id/fragmentSleepQuality"
@@ -26,6 +29,24 @@
             app:destination="@id/fragmentSleepTracker"
             app:popUpTo="@id/fragmentSleepTracker"
             app:popUpToInclusive="true" />
+        <argument
+            android:name="sleepNightKey"
+            app:argType="long" />
+    </fragment>
+    <fragment
+        android:id="@+id/fragmentSleepNightDetail"
+        android:name="com.example.sleeptracker.sleepnightdetail.FragmentSleepNightDetail"
+        android:label="fragment_sleep_night_detail"
+        tools:layout="@layout/fragment_sleep_night_detail" >
+        <action
+            android:id="@+id/action_fragmentSleepNightDetail_to_fragmentSleepTracker"
+            app:destination="@id/fragmentSleepTracker"
+            app:popUpTo="@id/fragmentSleepTracker"
+            app:enterAnim="@anim/fragment_open_enter"
+            app:popEnterAnim="@animator/nav_default_pop_enter_anim"
+            app:popUpToInclusive="true"
+            app:exitAnim="@anim/fragment_open_exit"
+            app:popExitAnim="@anim/nav_default_pop_exit_anim" />
         <argument
             android:name="sleepNightKey"
             app:argType="long" />

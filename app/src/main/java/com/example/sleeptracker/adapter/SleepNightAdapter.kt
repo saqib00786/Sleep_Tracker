@@ -8,7 +8,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.sleeptracker.databinding.ItemTextViewBinding
 import com.example.sleeptracker.model.SleepEntity
 
-class SleepNightAdapter :
+class SleepNightAdapter(val clickListener: SleepNightListner) :
     ListAdapter<SleepEntity, SleepNightAdapter.ViewHolder>(SleepNightDiffCallback()) {
 
     /* var data = listOf<SleepEntity>()
@@ -23,8 +23,9 @@ class SleepNightAdapter :
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
 //        val item = data[position]
-        val item = getItem(position)
-        holder.bind(item)
+//        val item = getItem(position)
+//        holder.bind(item)
+        holder.bind(getItem(position)!!,clickListener)
     }
 
 //    override fun getItemCount() = data.size
@@ -34,8 +35,9 @@ class SleepNightAdapter :
 //        private var mBinding: ItemTextViewBinding? = null
 //        private val binding get() = mBinding!!
 
-        fun bind(item : SleepEntity){
+        fun bind(item: SleepEntity, clickListener: SleepNightListner){
             mBinding.sleepListItemViewModel = item
+            mBinding.sleepNightListner = clickListener
             mBinding.executePendingBindings()
         }
 
@@ -59,4 +61,8 @@ class SleepNightDiffCallback : DiffUtil.ItemCallback<SleepEntity>() {
         return oldItem == newItem
     }
 
+}
+
+class SleepNightListner(val clickListener: (sleepId : Long) -> Unit){
+    fun onClick (night : SleepEntity) = clickListener(night.sleepNightId)
 }

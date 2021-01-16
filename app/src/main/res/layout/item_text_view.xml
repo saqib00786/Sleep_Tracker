@@ -6,13 +6,18 @@
         <variable
             name="sleepListItemViewModel"
             type="com.example.sleeptracker.model.SleepEntity" />
+        <variable
+            name="sleepNightListner"
+            type="com.example.sleeptracker.adapter.SleepNightListner" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_margin="4dp"
-        android:background="@drawable/recyclerview_bg">
+        android:background="@drawable/recyclerview_bg"
+        android:onClick="@{()-> sleepNightListner.onClick(sleepListItemViewModel)}"
+        >
 
         <androidx.appcompat.widget.AppCompatImageView
             android:id="@+id/sleepQualityImg"
